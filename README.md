@@ -1,1 +1,1 @@
-# Splunk-Home-Lab
+# Splunk Home Lab
