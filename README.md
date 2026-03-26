@@ -10,6 +10,14 @@
 * **Tactic:** Credential Access
 * **Technique:** [T1110.001 - Brute Force: Password Guessing](https://attack.mitre.org/techniques/T1110/001/)
 
+#### :crossed_swords:Attack Simulation
+To simulate a password guessing attack, I used Kali Linux and the `hydra` tool against the Ubuntu server's SSH service. 
+A custom password dictionary was utilized to generate multiple authentication failures.
+\n
+Kali Linux attack command:
+```
+hydra -l hp -P passwords.txt ssh://<UBUNTU_IP>
+```
 ### Scenario 2: Credential Dumping
 
 **MITRE ATT&CK mapping:**
