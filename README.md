@@ -45,11 +45,40 @@ Triggered alerts:
 * **Tactic:** Credential Access
 * **Technique:** [T1003.008 - OS Credential Dumping: /etc/passwd and /etc/shadow](https://attack.mitre.org/techniques/T1003/008/)
 
+#### :crossed_swords:Attack Simulation
+
+#### :shield:Threat Hunting
+SPL Query:
+```
+source="/var/log/audit.log" type="EXECVE" ("/etc/passwd" OR "/etc/shadow")
+| table a0, a1, a2, a3
+| rename a0 as "Command, a1 as "Arg 1", a2 as "Arg 2", a3 as "Arg 3"
+```
+
+#### :bar_chart:Detection in Splunk
+<img width="945" height="227" alt="image" src="https://github.com/user-attachments/assets/6c80dbc5-a475-41d3-9ad3-6a19bab28ece" />
+
 ### Scenario 3: Backdoor account creation
 
 **MITRE ATT&CK mapping:**
 * **Tactic:** Persistence
 * **Technique:** [T1136.001 - Create Account: Local Account](https://attack.mitre.org/techniques/T1136/001/)
+
+#### :crossed_swords:Attack Simulation
+
+#### :shield:Threat Hunting
+SPL Query:
+```
+source="/var/log/audit.log" type="EXECVE" ("useradd" OR "usermod")
+| eval Time=strftime(_time, "%Y-%m-%D %H-%M-%S")
+| table Time, a0, a1, a2, a3, a4
+| rename a0 as "Command", a1 as "Arg 1", a2 as "Arg 2", a3 as "Arg 3" a4 as "Added account"
+| sort - Time
+```
+
+#### :bar_chart:Detection in Splunk
+<img width="945" height="219" alt="image" src="https://github.com/user-attachments/assets/285375cf-8d51-4c05-a2e0-359de668fe12" />
+
 
 
 
