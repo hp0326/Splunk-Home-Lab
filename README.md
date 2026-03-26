@@ -25,8 +25,14 @@ source="/var/log/auth.log" sourcetype="linux_secure" "Failed password"
 | stats count by src_ip, user
 | where count >= 5
 | rename src_ip as "Suspicious IP", user as "Attacked account", count as "Number of failed attempts"
-| sort - "Number of failed attempts"
+| sort by "Number of failed attempts"
 ```
+<img width="1016" height="225" alt="image" src="https://github.com/user-attachments/assets/1d494132-def6-48fc-b420-7bfa1e003d7c" />
+
+<img width="945" height="995" alt="image" src="https://github.com/user-attachments/assets/9921f892-224c-405f-9238-01b111baa4dd" />
+
+<img width="945" height="160" alt="image" src="https://github.com/user-attachments/assets/85498caa-e21f-4b0c-b2bc-775098c8ad6a" />
+
 
 ### Scenario 2: Credential Dumping
 
