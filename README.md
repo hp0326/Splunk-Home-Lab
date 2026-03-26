@@ -18,6 +18,7 @@ Kali Linux attack command:
 ```
 hydra -l <ATTACKED_ACCOUNT> -P passwords.txt ssh://<UBUNTU_IP>
 ```
+#### :shield:Threat Hunting
 SPL Query:
 ```
 source="/var/log/auth.log" sourcetype="linux_secure" "Failed password"
@@ -27,10 +28,14 @@ source="/var/log/auth.log" sourcetype="linux_secure" "Failed password"
 | rename src_ip as "Suspicious IP", user as "Attacked account", count as "Number of failed attempts"
 | sort by "Number of failed attempts"
 ```
+#### :bar_chart:Detection in Splunk
 <img width="1016" height="225" alt="image" src="https://github.com/user-attachments/assets/1d494132-def6-48fc-b420-7bfa1e003d7c" />
 
+#### :rotating_light:Alerting
+Alert configuration:
 <img width="945" height="995" alt="image" src="https://github.com/user-attachments/assets/9921f892-224c-405f-9238-01b111baa4dd" />
 
+Triggered alerts:
 <img width="945" height="160" alt="image" src="https://github.com/user-attachments/assets/85498caa-e21f-4b0c-b2bc-775098c8ad6a" />
 
 
