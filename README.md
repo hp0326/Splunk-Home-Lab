@@ -16,8 +16,18 @@ A custom password dictionary was utilized to generate multiple authentication fa
 
 Kali Linux attack command:
 ```
-hydra -l hp -P passwords.txt ssh://<UBUNTU_IP>
+hydra -l <ATTACKED_ACCOUNT> -P passwords.txt ssh://<UBUNTU_IP>
 ```
+SPL Query:
+```
+source="/var/log/auth.log" sourcetype="linux_secure" "Failed password"
+| rex field=_raw "Failed password for (?<user>\S+) from (?<src_ip>[0-9\.]+)"
+| stats count by src_ip, user
+| where count >= 5
+| rename src_ip as "Suspicious IP", user as "Attacked account", count as "Number of failed attempts"
+| sort - "Number of failed attempts"
+```
+
 ### Scenario 2: Credential Dumping
 
 **MITRE ATT&CK mapping:**
