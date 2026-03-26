@@ -2,7 +2,7 @@
 
 ## 🧑‍💻Scenarios
 
-### Linux scenarios
+### :penguin:Linux scenarios
 
 ### Scenario 1: SSH Brute Force attack detection
 
@@ -22,7 +22,9 @@
 * **Tactic:** Persistence
 * **Technique:** [T1136.001 - Create Account: Local Account](https://attack.mitre.org/techniques/T1136/001/)
 
-### Windows scenarios
+
+
+### :window:Windows scenarios
 
 ### Scenario 1: SSH Brute Force attack detection
 
