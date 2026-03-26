@@ -2,7 +2,7 @@
 
 ## 🧑‍💻Scenarios
 
-### :penguin:Linux scenarios
+### <img src="https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black" alt="Linux Logo">Linux scenarios
 
 ### Scenario 1: SSH Brute Force attack detection
 
@@ -24,7 +24,7 @@
 
 
 
-### :window:Windows scenarios
+### <img src="https://img.shields.io/badge/Windows-0078D6?style=flat-square&logo=windows&logoColor=white" alt="Windows Logo">Windows scenarios
 
 ### Scenario 1: SSH Brute Force attack detection
 
