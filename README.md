@@ -90,14 +90,56 @@ source="/var/log/audit.log" type="EXECVE" ("useradd" OR "usermod")
 * **Tactic:** Credential Access
 * **Technique:** [T1110.001 - Brute Force: Password Guessing](https://attack.mitre.org/techniques/T1110/001/)
 
+#### :crossed_swords:Attack Simulation
+
+#### :shield:Threat Hunting
+SPL Query:
+```
+source="*WinEventLog:Security" EventCode=4625 Logon_Type=3
+| stats count by Account_Name, Source_Network_Address
+| rename Account_Name as "Attacked account", Source_Network_Address as "Suspicious IP", count as "Number of failed attempts"
+| sort - "Number of failed attempts"
+```
+
+#### :bar_chart:Detection in Splunk
+
+
 ### Scenario 2: Windows Security Event Logs removal
 
 **MITRE ATT&CK mapping:**
 * **Tactic:** Defense Evasion
 * **Technique:** [T1070.001 - Indicator Removal: Clear Windows Event Logs](https://attack.mitre.org/techniques/T1070/001/)
 
+#### :crossed_swords:Attack Simulation
+
+#### :shield:Threat Hunting
+SPL Query:
+```
+source="*WinEventLog:Security" EventCode=1102
+| eval Time=strftime(_time, "%Y-%m-%D %H-%M-%S")
+| table Time, Account_Name, ComputerName, EventCode
+| rename Account_Name as "Account Name", ComputerName as "Computer Name", EventCode as "Event Code"
+```
+
+#### :bar_chart:Detection in Splunk
+<img width="945" height="157" alt="image" src="https://github.com/user-attachments/assets/a7f186ea-40a2-43c3-8d9c-da9a9ac89113" />
+
+
 ### Scenario 3: Adding account to security-enabled local group
 
 **MITRE ATT&CK mapping:**
 * **Tactic:** Persistence
 * **Technique:** [T1098 - Account Manipulation](https://attack.mitre.org/techniques/T1098/)
+
+#### :crossed_swords:Attack Simulation
+
+#### :shield:Threat Hunting
+SPL Query:
+```
+source="*WinEventLog:Security" EventCode=4732
+| eval Time=strftime(_time, "%Y-%m-%D %H-%M-%S")
+| table Time, Account_Name, Group_Name, Security_ID
+```
+
+#### :bar_chart:Detection in Splunk
+<img width="945" height="202" alt="image" src="https://github.com/user-attachments/assets/26bd6697-bcb8-4d45-a591-6ce03a5ebd71" />
