@@ -2,7 +2,7 @@
 
 ## 🧑‍💻Scenarios
 
-### <img src="https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black" alt="Linux Logo">Linux scenarios
+### :penguin:Linux scenarios
 
 ### Scenario 1: SSH Brute Force attack detection
 
@@ -12,8 +12,8 @@
 
 #### :crossed_swords:Attack Simulation
 To simulate a password guessing attack, I used Kali Linux and the `hydra` tool against the Ubuntu server's SSH service. 
-A custom password dictionary was utilized to generate multiple authentication failures.
-\n
+A custom password dictionary was utilized to generate multiple authentication failures. <br />
+
 Kali Linux attack command:
 ```
 hydra -l hp -P passwords.txt ssh://<UBUNTU_IP>
@@ -32,7 +32,7 @@ hydra -l hp -P passwords.txt ssh://<UBUNTU_IP>
 
 
 
-### <img src="https://img.shields.io/badge/Windows-0078D6?style=flat-square&logo=windows&logoColor=white" alt="Windows Logo">Windows scenarios
+### :window:Windows scenarios
 
 ### Scenario 1: SSH Brute Force attack detection
 
