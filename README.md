@@ -12,11 +12,11 @@
 
 #### :crossed_swords:Attack Simulation
 To simulate a password guessing attack, I used Kali Linux and the `hydra` tool against the Ubuntu server's SSH service. 
-A custom password dictionary was utilized to generate multiple authentication failures. <br />
+A custom password dictionary was utilized to generate multiple authentication failures. 
 
 Kali Linux attack command:
 ```
-hydra -l <ATTACKED_ACCOUNT> -P passwords.txt ssh://<UBUNTU_IP>
+hydra -l <ATTACKED_ACCOUNT> -P passwords.txt ssh://<MACHINE_IP>
 ```
 #### :shield:Threat Hunting
 SPL Query:
@@ -39,13 +39,15 @@ Triggered alerts:
 <img width="945" height="160" alt="image" src="https://github.com/user-attachments/assets/85498caa-e21f-4b0c-b2bc-775098c8ad6a" />
 
 
-### Scenario 2: Credential Dumping
+### Scenario 2: OS Credential Dumping
 
 **MITRE ATT&CK mapping:**
 * **Tactic:** Credential Access
 * **Technique:** [T1003.008 - OS Credential Dumping: /etc/passwd and /etc/shadow](https://attack.mitre.org/techniques/T1003/008/)
 
 #### :crossed_swords:Attack Simulation
+To replicate credential dumping, an unauthorized user attempted to access the restricted `/etc/shadow` file, which contains hashed user passwords. 
+This action was monitored by the `auditd` service.
 
 #### :shield:Threat Hunting
 SPL Query:
@@ -65,6 +67,8 @@ source="/var/log/audit.log" type="EXECVE" ("/etc/passwd" OR "/etc/shadow")
 * **Technique:** [T1136.001 - Create Account: Local Account](https://attack.mitre.org/techniques/T1136/001/)
 
 #### :crossed_swords:Attack Simulation
+Adversaries may create local accounts to maintain persistent access to victim systems. 
+To simulate this, a new user account was added directly via the command line interface using escalated privileges.
 
 #### :shield:Threat Hunting
 SPL Query:
@@ -84,13 +88,14 @@ source="/var/log/audit.log" type="EXECVE" ("useradd" OR "usermod")
 
 ### :window:Windows scenarios
 
-### Scenario 1: SSH Brute Force attack detection
+### Scenario 1: Network Logon Brute Force Attack
 
 **MITRE ATT&CK mapping:**
 * **Tactic:** Credential Access
 * **Technique:** [T1110.001 - Brute Force: Password Guessing](https://attack.mitre.org/techniques/T1110/001/)
 
 #### :crossed_swords:Attack Simulation
+To trigger network authentication failures (Logon Type 3), a simulated brute-force attack was performed against the Windows machine's SMB service from an external node.
 
 #### :shield:Threat Hunting
 SPL Query:
@@ -102,6 +107,7 @@ source="*WinEventLog:Security" EventCode=4625 Logon_Type=3
 ```
 
 #### :bar_chart:Detection in Splunk
+<img width="945" height="206" alt="image" src="https://github.com/user-attachments/assets/87926e00-4fa0-4bf0-98d4-6d39442bae86" />
 
 
 ### Scenario 2: Windows Security Event Logs removal
@@ -111,6 +117,7 @@ source="*WinEventLog:Security" EventCode=4625 Logon_Type=3
 * **Technique:** [T1070.001 - Indicator Removal: Clear Windows Event Logs](https://attack.mitre.org/techniques/T1070/001/)
 
 #### :crossed_swords:Attack Simulation
+Adversaries often clear event logs to hide their activities. This was simulated by manually clearing the Security Event Logs using the built-in Windows utility `wevtutil` via Command Prompt.
 
 #### :shield:Threat Hunting
 SPL Query:
@@ -132,6 +139,7 @@ source="*WinEventLog:Security" EventCode=1102
 * **Technique:** [T1098 - Account Manipulation](https://attack.mitre.org/techniques/T1098/)
 
 #### :crossed_swords:Attack Simulation
+To establish persistent high-level access, a standard user account was added to the local `Administrators` security-enabled group using the Windows command line.
 
 #### :shield:Threat Hunting
 SPL Query:
